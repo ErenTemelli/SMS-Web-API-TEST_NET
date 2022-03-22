@@ -7,11 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Twilio;
+using Twilio.Rest.Api.V2010.Account;
 
 namespace WindowsFormsApp4
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
@@ -29,7 +32,20 @@ namespace WindowsFormsApp4
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string[] telefonlar = { "+905313946366", "#####", "###" };
+            List<string> TelefonListesi = new List<string>(telefonlar);
+            foreach (string item in TelefonListesi)
+            {
+            var accountSid = "######";
+            var authToken = "####";
 
+            TwilioClient.Init(accountSid, authToken);
+
+            var message = MessageResource.Create(
+                   to: new Twilio.Types.PhoneNumber(item),
+                   from: new Twilio.Types.PhoneNumber("+12242688427"),
+                   body: textBox1.Text);
+            }
         }
     }
 }
